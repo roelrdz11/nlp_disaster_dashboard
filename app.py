@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 import base64
 from io import BytesIO
 
-# Download NLTK data (if not already downloaded)
+# Download NLTK data
 nltk.download('stopwords')
 nltk.download('punkt')
 nltk.download('wordnet')
@@ -21,7 +21,7 @@ from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
 from nltk.stem import WordNetLemmatizer
 
-# Define your local paths for train dataset
+# Define the paths for train dataset
 train_path = "C:\\Users\\roelr\\OneDrive\\Documents\\ADAN\\7431\\nlp_disaster_dashboard\\train.csv"
 
 # Load the train dataset
@@ -95,7 +95,7 @@ app = dash.Dash(__name__)
 # Define layout with two word clouds in the Results column
 app.layout = html.Div([
     
-    # Header Section (Title, Name, Affiliation)
+    # Header Section
     html.Div([
         html.H1("NLP Disaster Tweet Dashboard"),
         html.H3("Roel Rodriguez"),
@@ -125,7 +125,7 @@ app.layout = html.Div([
             ], style={'overflowY': 'scroll', 'height': '150px', 'padding': '10px'}),
         ], style={'width': '23%', 'display': 'inline-block', 'verticalAlign': 'top', 'padding': '10px', 'border': '1px solid gray'}),
         
-        # Column 2: Methods (without Word Cloud now)
+        # Column 2: Methods
         html.Div([
             html.Div([
                 html.H3("Methods"),
