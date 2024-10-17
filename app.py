@@ -1,7 +1,5 @@
-import dash
-from dash import dcc, html
+from dash import html
 import pandas as pd
-from dash.dependencies import Input, Output
 import re
 import nltk
 from sklearn.feature_extraction.text import TfidfVectorizer
@@ -89,125 +87,60 @@ Actual Non-Disaster |    {conf_matrix[0][0]}             |    {conf_matrix[0][1]
 Actual Disaster     |    {conf_matrix[1][0]}             |    {conf_matrix[1][1]}
 """
 
-# Initialize the app
-app = dash.Dash(__name__)
-
-# Define layout with two word clouds in the Results column
-app.layout = html.Div([
-    
-    # Header Section
-    html.Div([
-        html.H1("NLP Disaster Tweet Dashboard"),
-        html.H3("Roel Rodriguez"),
-        html.H4("Boston College, Woods College: Applied Analytics, ADAN 7431: Natural Language Processing"),
-    ], style={'textAlign': 'center', 'padding': '10px', 'backgroundColor': '#8a100b'}),
-    
-    # Main content: 4 columns
-    html.Div([
-        # Column 1: Abstract, Introduction & Significance
-        html.Div([
-            html.Div([
-                html.H3("Abstract"),
-                dcc.Markdown('''
-                This dashboard presents a Logistic Regression model trained on disaster tweets to predict if a tweet is related to a disaster or not.
-                The goal of this project is to demonstrate the utility of natural language processing (NLP) techniques in identifying relevant
-                disaster-related content in social media data, which could assist emergency responders in real-time.
-                ''')
-            ], style={'overflowY': 'scroll', 'height': '150px', 'padding': '10px'}),
-            
-            html.Div([
-                html.H3("Introduction & Significance"),
-                dcc.Markdown('''
-                Social media platforms, such as Twitter, generate massive amounts of data during disasters. By leveraging machine learning models,
-                it is possible to quickly identify disaster-related content that can be critical for authorities. Accurate identification of this content
-                helps in the rapid dissemination of information, early warnings, and coordination during emergency responses.
-                ''')
-            ], style={'overflowY': 'scroll', 'height': '150px', 'padding': '10px'}),
-        ], style={'width': '23%', 'display': 'inline-block', 'verticalAlign': 'top', 'padding': '10px', 'border': '1px solid gray'}),
+# Generate static HTML output
+html_output = f"""
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NLP Disaster Tweet Dashboard</title>
+    <style>
+        body {{ font-family: Arial, sans-serif; }}
+        .container {{ max-width: 1200px; margin: auto; padding: 20px; }}
+        .column {{ float: left; width: 23%; margin: 1%; padding: 10px; border: 1px solid gray; }}
+        .clear {{ clear: both; }}
+        h1, h3, h4, h5 {{ color: #8a100b; text-align: center; }}
+        img {{ width: 100%; height: auto; }}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>NLP Disaster Tweet Dashboard</h1>
+        <h3>Roel Rodriguez</h3>
+        <h4>Boston College, Woods College: Applied Analytics, ADAN 7431: Natural Language Processing</h4>
         
-        # Column 2: Methods
-        html.Div([
-            html.Div([
-                html.H3("Methods"),
-                dcc.Markdown('''
-                - **Preprocessing**: The text data underwent several preprocessing steps, including:
-                    1. Removing URLs, special characters, and punctuation.
-                    2. Converting all text to lowercase to ensure uniformity.
-                    3. Tokenizing the text into individual words for further analysis.
-                    4. Removing stopwords (common words like 'the', 'and', etc.) to focus on key terms.
-                    5. Lemmatizing each word, meaning reducing words to their base or root form.
-                
-                - **Feature Extraction**: Using the TF-IDF (Term Frequency-Inverse Document Frequency) vectorizer, the text was converted into numerical
-                  features. This method highlights the most important words for classification by considering both how frequently they appear in the document
-                  and how unique they are across the entire dataset.
-                
-                - **Model**: A Logistic Regression model was trained to classify each tweet as either related to a disaster or not.
-                '''),
-            ], style={'overflowY': 'scroll', 'height': '320px', 'padding': '10px'}),
-        ], style={'width': '23%', 'display': 'inline-block', 'verticalAlign': 'top', 'padding': '10px', 'border': '1px solid gray'}),
+        <div class="column">
+            <h3>Abstract</h3>
+            <p>This dashboard presents a Logistic Regression model trained on disaster tweets to predict if a tweet is related to a disaster or not.</p>
+        </div>
         
-        # Column 3: Results (with disaster and non-disaster word clouds)
-        html.Div([
-            html.Div([
-                html.H3("Performance Metrics"),
-                html.P(f"Accuracy: {accuracy:.2f}"),
-                html.P(f"Precision (Non-Disaster): {clf_report['0']['precision']:.2f}, Recall: {clf_report['0']['recall']:.2f}, F1: {clf_report['0']['f1-score']:.2f}"),
-                html.P(f"Precision (Disaster): {clf_report['1']['precision']:.2f}, Recall: {clf_report['1']['recall']:.2f}, F1: {clf_report['1']['f1-score']:.2f}")
-            ], style={'overflowY': 'scroll', 'height': '150px', 'padding': '10px'}),
-            
-            html.Div([
-                html.H3("Confusion Matrix"),
-                html.Pre(conf_matrix_str)  # Print the confusion matrix as formatted text
-            ], style={'padding': '10px'}),
-
-            # Word Clouds
-            html.Div([
-                html.H3("Disaster Tweets Word Cloud"),
-                html.Img(src=f'data:image/png;base64,{disaster_encoded_image}', style={'width': '100%', 'height': 'auto'})
-            ], style={'padding': '10px'}),
-
-            html.Div([
-                html.H3("Non-Disaster Tweets Word Cloud"),
-                html.Img(src=f'data:image/png;base64,{non_disaster_encoded_image}', style={'width': '100%', 'height': 'auto'})
-            ], style={'padding': '10px'})
-        ], style={'width': '23%', 'display': 'inline-block', 'verticalAlign': 'top', 'padding': '10px', 'border': '1px solid gray'}),
+        <div class="column">
+            <h3>Methods</h3>
+            <p>Preprocessing steps, TF-IDF feature extraction, and Logistic Regression model were used.</p>
+        </div>
         
-        # Column 4: Discussion, Conclusion, and References
-        html.Div([
-            html.Div([
-                html.H3("Discussion"),
-                dcc.Markdown('''
-                The model achieved a reasonable accuracy and balanced precision and recall for both disaster and non-disaster tweets. 
-                However, there are some areas for improvement, particularly in reducing false positives, where non-disaster tweets 
-                are mistakenly classified as disaster-related. Future work could explore more sophisticated models or ensemble approaches 
-                to improve overall performance and reduce misclassifications.
-                ''')
-            ], style={'overflowY': 'scroll', 'height': '150px', 'padding': '10px'}),
-            
-            html.Div([
-                html.H3("Conclusion"),
-                dcc.Markdown('''
-                This project demonstrates the capability of natural language processing and machine learning models in classifying tweets 
-                related to disasters. Although the Logistic Regression model provides a simple and efficient solution, more complex models 
-                may yield better performance. This dashboard serves as a foundation for future work in real-time disaster detection using 
-                social media data.
-                ''')
-            ], style={'overflowY': 'scroll', 'height': '150px', 'padding': '10px'}),
-            
-            html.Div([
-                html.H3("References"),
-                dcc.Markdown('''
-                - NLTK: Natural Language Toolkit for text preprocessing.
-                - Scikit-learn: Machine learning library for model training and evaluation.
-                - TF-IDF: A method for converting text data into numerical features for classification.
-                ''')
-            ], style={'overflowY': 'scroll', 'height': '150px', 'padding': '10px'}),
-        ], style={'width': '23%', 'display': 'inline-block', 'verticalAlign': 'top', 'padding': '10px', 'border': '1px solid gray'}),
-    ], style={'display': 'flex', 'justifyContent': 'space-between'}),  # Flexbox layout to arrange columns
+        <div class="column">
+            <h3>Results</h3>
+            <p>Accuracy: {accuracy:.2f}</p>
+            <pre>{conf_matrix_str}</pre>
+            <h5>Disaster Tweets Word Cloud</h5>
+            <img src="data:image/png;base64,{disaster_encoded_image}">
+            <h5>Non-Disaster Tweets Word Cloud</h5>
+            <img src="data:image/png;base64,{non_disaster_encoded_image}">
+        </div>
+        
+        <div class="column">
+            <h3>Discussion</h3>
+            <p>Improvements can be made in reducing false positives.</p>
+        </div>
+        
+        <div class="clear"></div>
+    </div>
+</body>
+</html>
+"""
 
-])
-
-# Run the app
-if __name__ == '__main__':
-    app.run_server(debug=True, port=8051)  # different port
-
+# Save the HTML file
+with open("index.html", "w") as file:
+    file.write(html_output)
