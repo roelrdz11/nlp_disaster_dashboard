@@ -135,7 +135,7 @@ Actual Non-Disaster |    {conf_matrix[0][0]}             |    {conf_matrix[0][1]
 Actual Disaster     |    {conf_matrix[1][0]}             |    {conf_matrix[1][1]}
 """
 
-kaggle_score_image_path = "C:\\Users\\roelr\\OneDrive\\Pictures\\Screenshots\\kaggle_score.png"
+kaggle_score_image_path = r"C:\Users\roelr\OneDrive\Pictures\kaggle_nlp_disaster.png"
 
 # Encode Kaggle score image as base64
 with open(kaggle_score_image_path, "rb") as image_file:
@@ -152,7 +152,7 @@ html_output = f"""
     <style>
         body {{
             font-family: Arial, sans-serif;
-            background-color: #b29d6c;
+            background-color: #b29d6c;  /* Set background color of the page */
             margin: 0;
             padding: 0;
         }}
@@ -162,15 +162,14 @@ html_output = f"""
             padding: 20px;
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between;
+            justify-content: space-between;  /* Ensure the columns are spaced out evenly */
         }}
         .column {{
-            flex-basis: 23%;
-            margin: 10px;
+            flex-basis: 23%;  /* Each column takes up about 23% of the width */
+            margin: 1%;  /* Small margin between columns */
             padding: 10px;
             border: 1px solid gray;
             box-sizing: border-box;
-            min-width: 280px;
         }}
         .header {{
             background-color: #8a100b;
@@ -180,8 +179,12 @@ html_output = f"""
             width: 100%;
         }}
         h1, h3, h4, h5 {{
-            color: white;
+            color: white;  /* Ensure header text is visible */
             margin: 10px 0;
+        }}
+        .section-title {{
+            text-align: center;
+            font-weight: bold;
         }}
         img {{
             width: 100%;
@@ -205,21 +208,24 @@ html_output = f"""
         <!-- Column 1: Abstract, Introduction & Significance -->
         <div class="column">
             <h3 class="section-title">Abstract</h3>
-            <p>This dashboard presents a Logistic Regression model trained on disaster tweets to predict if a tweet is related to a disaster or not. The model now also incorporates metadata (keywords and location) in the prediction. This project demonstrates the utility of NLP and metadata in identifying disaster-related content in social media data.</p>
+            <p>This dashboard presents a Logistic Regression model trained on disaster tweets to predict if a tweet is related to a disaster or not. The goal of this project is to demonstrate the utility of natural language processing (NLP) techniques in identifying relevant disaster-related content in social media data, which could assist emergency responders in real-time.</p>
+            
+            <h3 class="section-title">Introduction & Significance</h3>
+            <p>Social media platforms, such as Twitter, generate massive amounts of data during disasters. By leveraging machine learning models, it is possible to quickly identify disaster-related content that can be critical for authorities. Accurate identification of this content helps in the rapid dissemination of information, early warnings, and coordination during emergency responses.</p>
         </div>
 
         <!-- Column 2: Methods -->
         <div class="column">
             <h3 class="section-title">Methods</h3>
-            <p><strong>Preprocessing:</strong> The text data was preprocessed by:</p>
+            <p><strong>Preprocessing:</strong> The text data underwent several preprocessing steps, including:</p>
             <ul>
                 <li>Removing URLs, special characters, and punctuation.</li>
-                <li>Converting all text to lowercase.</li>
-                <li>Tokenizing the text into individual words.</li>
-                <li>Removing stopwords to focus on key terms.</li>
-                <li>Lemmatizing each word to reduce words to their base form.</li>
+                <li>Converting all text to lowercase to ensure uniformity.</li>
+                <li>Tokenizing the text into individual words for further analysis.</li>
+                <li>Removing stopwords (common words like 'the', 'and', etc.) to focus on key terms.</li>
+                <li>Lemmatizing each word, reducing words to their base or root form.</li>
             </ul>
-            <p><strong>Feature Extraction:</strong> TF-IDF was applied to the text, and metadata features (keywords and location) were encoded and added.</p>
+            <p><strong>Metadata Handling:</strong> Missing keywords and locations were filled with 'unknown'. Both the keyword and location fields were encoded and added to the model's feature set.</p>
         </div>
 
         <!-- Column 3: Results -->
@@ -240,6 +246,23 @@ html_output = f"""
             <img src="data:image/png;base64,{kaggle_score_encoded_image}" alt="Kaggle Submission Score">
         </div>
 
+        <!-- Discussion and Conclusion -->
+        <div class="column">
+            <h3 class="section-title">Discussion</h3>
+            <p>The model achieved reasonable accuracy and balanced precision and recall for both disaster and non-disaster tweets. However, improvements can be made, particularly in reducing false positives, where non-disaster tweets are mistakenly classified as disaster-related. Future work could explore more sophisticated models or ensemble approaches to improve overall performance.</p>
+
+            <h3 class="section-title">Conclusion</h3>
+            <p>This project demonstrates the capability of natural language processing and machine learning models in classifying tweets related to disasters. Although the Logistic Regression model provides a simple and efficient solution, more complex models may yield better performance.</p>
+
+            <h3 class="section-title">References</h3>
+            <ul>
+                <li>NLTK: Natural Language Toolkit for text preprocessing.</li>
+                <li>Scikit-learn: Machine learning library for model training and evaluation.</li>
+                <li>TF-IDF: A method for converting text data into numerical features for classification.</li>
+            </ul>
+        </div>
+
+        <!-- Clear floats -->
         <div class="clear"></div>
     </div>
 </body>
