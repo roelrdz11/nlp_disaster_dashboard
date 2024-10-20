@@ -193,6 +193,10 @@ html_output = f"""
         pre {{
             white-space: pre-wrap;
             word-wrap: break-word;
+            font-family: monospace;  /* Use monospace font for better alignment */
+            background-color: #f5f5f5; /* Light background for easier reading */
+            padding: 10px;
+            border-radius: 5px;
         }}
     </style>
 </head>
@@ -232,22 +236,29 @@ html_output = f"""
         <div class="column">
             <h3 class="section-title">Results</h3>
             <p><strong>Accuracy:</strong> {accuracy:.2f}</p>
-            <pre>{conf_matrix_str}</pre>
+            <pre>
+Confusion Matrix:
+     Predicted Non-Disaster | Predicted Disaster
+     -------------------------------------------
+Actual Non-Disaster  |        4116         |         226
+Actual Disaster      |         752         |        2519
+            </pre>
+
+            <!-- Word Clouds -->
             <h5>Disaster Tweets Word Cloud</h5>
             <img src="data:image/png;base64,{disaster_encoded_image}">
+
             <h5>Non-Disaster Tweets Word Cloud</h5>
             <img src="data:image/png;base64,{non_disaster_encoded_image}">
         </div>
 
-        <!-- Column 4: Kaggle Submission and Score -->
+        <!-- Column 4: Kaggle Submission, Discussion, and Conclusion -->
         <div class="column">
             <h3 class="section-title">Kaggle Submission</h3>
             <p>See the Kaggle submission score below based on this model.</p>
             <img src="data:image/png;base64,{kaggle_score_encoded_image}" alt="Kaggle Submission Score">
-        </div>
 
-        <!-- Discussion and Conclusion -->
-        <div class="column">
+            <!-- Discussion and Conclusion (below the Kaggle score) -->
             <h3 class="section-title">Discussion</h3>
             <p>The model achieved reasonable accuracy and balanced precision and recall for both disaster and non-disaster tweets. However, improvements can be made, particularly in reducing false positives, where non-disaster tweets are mistakenly classified as disaster-related. Future work could explore more sophisticated models or ensemble approaches to improve overall performance.</p>
 
