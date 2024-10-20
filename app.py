@@ -239,9 +239,9 @@ html_output = f"""
             <pre>
 Confusion Matrix:
      Predicted Non-Disaster | Predicted Disaster
-     -------------------------------------------
-Actual Non-Disaster  |        4116         |         226
-Actual Disaster      |         752         |        2519
+     ----------------
+Actual Non-Disaster  |        4116       |         226
+Actual Disaster      |         752       |        2519
             </pre>
 
             <!-- Word Clouds -->
