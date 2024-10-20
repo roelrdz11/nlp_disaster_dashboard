@@ -107,14 +107,15 @@ html_output = f"""
             padding: 20px;
             display: flex;
             flex-wrap: wrap;
-            justify-content: space-between;  /* Ensure the columns are spaced out evenly */
+            justify-content: space-between;
         }}
         .column {{
-            flex-basis: 23%;  /* Each column takes up about 23% of the width */
-            margin: 1%;  /* Small margin between columns */
+            flex: 0 1 23%;  /* Each column takes up about 23% of the width */
+            margin: 10px;
             padding: 10px;
             border: 1px solid gray;
             box-sizing: border-box;
+            min-width: 280px; /* Ensures columns don't shrink too small */
         }}
         .header {{
             background-color: #8a100b;
@@ -124,7 +125,7 @@ html_output = f"""
             width: 100%;
         }}
         h1, h3, h4, h5 {{
-            color: white;  /* Ensure header text is visible */
+            color: white;
             margin: 10px 0;
         }}
         .section-title {{
