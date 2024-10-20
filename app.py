@@ -95,15 +95,50 @@ html_output = f"""
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NLP Disaster Tweet Dashboard</title>
     <style>
-        body {{ font-family: Arial, sans-serif; }}
-        .container {{ max-width: 1200px; margin: auto; padding: 20px; }}
-        .column {{ float: left; width: 23%; margin: 1%; padding: 10px; border: 1px solid gray; }}
-        .clear {{ clear: both; }}
-        h1, h3, h4, h5 {{ color: #8a100b; text-align: center; }}
-        img {{ width: 100%; height: auto; }}
-        .header {{ background-color: #8a100b; color: white; padding: 10px; text-align: center; }}
-        .section-title {{ text-align: center; font-weight: bold; }}
-        pre {{ white-space: pre-wrap; word-wrap: break-word; }}
+        body {{
+            font-family: Arial, sans-serif;
+            background-color: #b29d6c;  /* Set background color of the page */
+            margin: 0;
+            padding: 0;
+        }}
+        .container {{
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;  /* Ensure the columns are spaced out evenly */
+        }}
+        .column {{
+            flex-basis: 23%;  /* Each column takes up about 23% of the width */
+            margin: 1%;  /* Small margin between columns */
+            padding: 10px;
+            border: 1px solid gray;
+            box-sizing: border-box;
+        }}
+        .header {{
+            background-color: #8a100b;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            width: 100%;
+        }}
+        h1, h3, h4, h5 {{
+            color: white;  /* Ensure header text is visible */
+            margin: 10px 0;
+        }}
+        .section-title {{
+            text-align: center;
+            font-weight: bold;
+        }}
+        img {{
+            width: 100%;
+            height: auto;
+        }}
+        pre {{
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }}
     </style>
 </head>
 <body>
