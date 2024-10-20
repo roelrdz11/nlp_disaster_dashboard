@@ -229,7 +229,7 @@ html_output = f"""
                 <li>Removing stopwords (common words like 'the', 'and', etc.) to focus on key terms.</li>
                 <li>Lemmatizing each word, reducing words to their base or root form.</li>
             </ul>
-            <p><strong>Metadata Handling:</strong> Missing keywords and locations were filled with 'unknown'. Both the keyword and location fields were encoded and added to the model's feature set.</p>
+            <p><strong>Metadata Handling:</strong> Initially, the model achieved an accuracy of 0.80 using only text features. After incorporating metadata (keywords and locations), which were encoded and added to the model, the accuracy improved to 0.87.</p>
         </div>
 
         <!-- Column 3: Results -->
@@ -239,9 +239,9 @@ html_output = f"""
             <pre>
 Confusion Matrix:
      Predicted Non-Disaster | Predicted Disaster
-     ----------------
-Actual Non-Disaster  |        4116       |         226
-Actual Disaster      |         752       |        2519
+     ------------------------
+Actual Non-Disaster  |        4116      |         226
+Actual Disaster      |         752      |        2519
             </pre>
 
             <!-- Word Clouds -->
@@ -255,7 +255,7 @@ Actual Disaster      |         752       |        2519
         <!-- Column 4: Kaggle Submission, Discussion, and Conclusion -->
         <div class="column">
             <h3 class="section-title">Kaggle Submission</h3>
-            <p>See the Kaggle submission score below based on this model.</p>
+            <p>The model was submitted to Kaggle's disaster tweet competition and achieved a score of <strong>0.79865</strong>, demonstrating its effectiveness for this task.</p>
             <img src="data:image/png;base64,{kaggle_score_encoded_image}" alt="Kaggle Submission Score">
 
             <!-- Discussion and Conclusion (below the Kaggle score) -->
